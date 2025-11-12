@@ -125,7 +125,7 @@ const AddMovie = () => {
                         />
                     </div>
 
-                    {/* Right Column */}
+                    {/* RIGN*/}
                     <div className="flex flex-col gap-3">
                         <input
                             type="number"
@@ -170,7 +170,7 @@ const AddMovie = () => {
                         />
                     </div>
 
-                    {/* Full width text area */}
+                    {/* FULL WIDTH TEXT AREA*/}
                     <div className="col-span-1 md:col-span-2">
                         <textarea
                             name="plotSummary"
@@ -181,7 +181,7 @@ const AddMovie = () => {
                         />
                     </div>
 
-                    {/* Submit Button */}
+                    {/* SUBMIT BUTTON */}
                     <div className="col-span-1 md:col-span-2 flex justify-center mt-4">
                         <button
                             type="submit"
