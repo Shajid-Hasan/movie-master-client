@@ -4,7 +4,7 @@ import styled from "styled-components";
 const TopRatedMovies = () => {
     const [movies, setMovies] = useState([]);
 
-    // ✅ Fetch data
+    // FATCH BACKEND API
     useEffect(() => {
         fetch("http://localhost:3000/movies")
             .then((res) => res.json())
@@ -21,7 +21,7 @@ const TopRatedMovies = () => {
             <div className="card-grid">
                 {movies.length > 0 ? (
                     movies.map((movie) => (
-                        <div key={movie.id} className="flip-card">
+                        <div key={movie._id} className="flip-card">
                             <div className="flip-card-inner">
                                 {/* FRONT */}
                                 <div className="flip-card-front">

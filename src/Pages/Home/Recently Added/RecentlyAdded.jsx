@@ -20,7 +20,7 @@ const RecentlyAdded = () => {
             {movies.length > 0 ? (
                 <div className="card-grid">
                     {movies.map((movie) => (
-                        <div className="card" key={movie.id}>
+                        <div className="card" key={movie._id}>
                             <div className="first-content">
                                 <img
                                     src={movie.posterUrl}

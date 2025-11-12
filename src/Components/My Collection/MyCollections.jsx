@@ -67,7 +67,7 @@ const MyCollections = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
                 {movies.map((movie) => (
                     <div
-                        key={movie.id}
+                        key={movie._id}
                         className="card bg-[#292929] shadow-xl overflow-hidden rounded-xl w-72 flex flex-col"
                     >
                         <div className="h-64 overflow-hidden">
