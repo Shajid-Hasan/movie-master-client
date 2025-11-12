@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { RiGoogleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
@@ -7,88 +7,100 @@ import { AuthContext } from '../../Context/Authentication';
 
 // FIREBASE AUTH PROVIDER
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    // USE NAVIGATE
+
+
+  // AUTHPROVIDER CONTEXT
+  const {
+
+    signInWithEmailAndPasswordFunc,
+    signInWithEmailFunction,
+    setUser,
+    setLoading,
+    user
+
+  } = useContext(AuthContext)
+
+  const location = useLocation();
+  const form = location.state || '/';
+  
+  // USE NAVIGATE
     const navigate = useNavigate();
-
-    // AUTHPROVIDER CONTEXT
-    const {
-
-        signInWithEmailAndPasswordFunc,
-        signInWithEmailFunction,
-        setUser,
-        setLoading
-
-    } = useContext(AuthContext)
-
-    // HANDEL LOGIN
-    const handelLogIn = (e) => {
-        e.preventDefault()
-        const name = e.target.name.value
-        const email = e.target.email.value
-        const password = e.target.password.value
-        console.log({name, email, password })
-
-        // FIREBASE REGISTER WITH EMAIL & PASSWORD AUTHENTICATION
-        signInWithEmailAndPasswordFunc(email, password)
-            .then((res) => {
-                console.log(res.user)
-                setUser(res.user)
-                toast.success('Login succesfully')
-                navigate('/');
-            })
-            .catch((error) => {
-                console.log(error.message);
-                toast.error('Login faild')
-            });
+    
+    if(user){
+      navigate('/')
     }
 
-        // FIREBASE REGISTER WITH GOOGLE AUTHENTICATION
-        const handelGoogleLogIn = () => {
-            signInWithEmailFunction()
-                .then(res => {
-                    console.log(res.user)
-                    setLoading(false)
-                    toast.success('Login with google succesfully')
-                    navigate('/');
-                })
-                .catch(error => {
-                    console.log(error.message)
-                    toast.error('Login faild')
-                })
-        }
-    return (
-        <StyledWrapper>
-            <div className="container">
-                <form onSubmit={handelLogIn} className="form" action="#">
-                    <p className="title">Login</p>
+  console.log(location);
 
-                    {/* EMAIL */}
-                    <input placeholder="Email" className="username input" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+  // HANDEL LOGIN
+  const handelLogIn = (e) => {
+    e.preventDefault()
+    const name = e.target.name.value
+    const email = e.target.email.value
+    const password = e.target.password.value
+    console.log({ name, email, password })
 
-                    {/* PASSWORD */}
-                    <input placeholder="Password" className="password input" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+    // FIREBASE REGISTER WITH EMAIL & PASSWORD AUTHENTICATION
+    signInWithEmailAndPasswordFunc(email, password)
+      .then((res) => {
+        console.log(res.user)
+        setUser(res.user)
+        navigate(form);
+        toast.success('Login succesfully')
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error('Login faild')
+      });
+  }
 
-                    {/* LOGIN BUTTON */}
-                    <button className="btn" type="submit">Login</button>
+  // FIREBASE REGISTER WITH GOOGLE AUTHENTICATION
+  const handelGoogleLogIn = () => {
+    signInWithEmailFunction()
+      .then(res => {
+        console.log(res.user)
+        setLoading(false)
+        navigate(form);
+        toast.success('Login with google succesfully')
+      })
+      .catch(error => {
+        console.log(error.message)
+        toast.error('Login faild')
+      })
+  }
+  return (
+    <StyledWrapper>
+      <div className="container">
+        <form onSubmit={handelLogIn} className="form" action="#">
+          <p className="title">Login</p>
 
-                    {/* GOOGLE LOGIN */}
-                    <Link onClick={handelGoogleLogIn} className="btn google-btn" type="button">
-                        <span className="google-icon"><RiGoogleLine /></span>
-                        Login with Google
-                    </Link>
+          {/* EMAIL */}
+          <input placeholder="Email" className="username input" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-                    {/* FORGOT PASSWORD */}
-                    <div className='links'>
-                        <Link className='text-white'>Forgot Password ?</Link>
-                        <Link to='/register' className='text-white'>Register</Link>
-                    </div>
-                </form>
-            </div>
-        </StyledWrapper>
-    );
+          {/* PASSWORD */}
+          <input placeholder="Password" className="password input" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+          {/* LOGIN BUTTON */}
+          <button className="btn" type="submit">Login</button>
+
+          {/* GOOGLE LOGIN */}
+          <Link onClick={handelGoogleLogIn} className="btn google-btn" type="button">
+            <span className="google-icon"><RiGoogleLine /></span>
+            Login with Google
+          </Link>
+
+          {/* FORGOT PASSWORD */}
+          <div className='links'>
+            <Link className='text-white'>Forgot Password ?</Link>
+            <Link to='/register' className='text-white'>Register</Link>
+          </div>
+        </form>
+      </div>
+    </StyledWrapper>
+  );
 };
 
 const StyledWrapper = styled.div`

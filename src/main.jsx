@@ -34,9 +34,8 @@ const router = createBrowserRouter([
         path: '/mycollections',
         element: (
           <PrivetRoute>
-            MyCollections
+            <MyCollections/>
           </PrivetRoute>
-
         ) 
       },
       {
