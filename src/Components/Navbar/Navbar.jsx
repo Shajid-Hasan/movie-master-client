@@ -35,7 +35,7 @@ const Navbar = () => {
         user && (<li><NavLink to="/addmovie" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Add Movie</NavLink></li>)
       }
       {
-        user && (<li><NavLink to="/update" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Update Movie</NavLink></li>)
+        user && (<li><NavLink to="/updatemovie" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Update Movie</NavLink></li>)
       }
     </>
   );

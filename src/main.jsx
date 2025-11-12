@@ -64,15 +64,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/updatemovie',
-        Component: UpdateMovie
-      },
-      {
-        path: '/update',
-        Component: UpdateMovie
+        element: (
+          <PrivetRoute>
+            <UpdateMovie/>
+          </PrivetRoute>
+        ) 
       },
       {
         path: '/update/:id',
-        Component: UpdateMovie
+        element: (
+          <PrivetRoute>
+            <UpdateMovie/>
+          </PrivetRoute>
+        )
       }
     ]
   }

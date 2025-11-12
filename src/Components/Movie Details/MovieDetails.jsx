@@ -96,7 +96,7 @@ const MovieDetails = () => {
 
                     {/* Buttons section (unchanged) */}
                     <div className="flex justify-end gap-8 mt-4">
-                        <Link to={`/edit-movie/${movie._id}`}><Edit /></Link>
+                        <Link to={`/update/${movie._id}`}><Edit /></Link>
                         <button onClick={handelDelete}><Delete /></button>
                     </div>
                 </div>
