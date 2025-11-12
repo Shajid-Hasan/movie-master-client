@@ -13,6 +13,7 @@ import AuthProvider from './Context/AuthProvider.jsx'
 import MovieDetails from './Components/Movie Details/MovieDetails.jsx'
 import EditMovie from './Components/Movie Details/Edit Movie/EditMovie.jsx'
 import AddMovie from './Components/Add Movie/AddMovie.jsx'
+import PrivetRoute from './Privet Route/PrivetRoute.jsx'
 
 
 const router = createBrowserRouter([
@@ -28,13 +29,15 @@ const router = createBrowserRouter([
         path: '/allmovies',
         Component: AllMovies,
       },
-      // {
-      //   path: '/allmovies/:id',
-      //   Component: AllMovies,
-      // },
+      
       {
         path: '/mycollections',
-        Component: MyCollections
+        element: (
+          <PrivetRoute>
+            MyCollections
+          </PrivetRoute>
+
+        ) 
       },
       {
         path: '/addmovie',
