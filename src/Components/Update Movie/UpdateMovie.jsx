@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../../Context/Authentication";
+import { AuthContext } from "../../Context/Authentication";
 
-const EditMovie = () => {
+const UpdateMovie = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -241,4 +241,4 @@ const EditMovie = () => {
     );
 };
 
-export default EditMovie;
+export default UpdateMovie;

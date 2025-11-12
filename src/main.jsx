@@ -11,9 +11,9 @@ import Register from './Pages/Register/Register.jsx'
 import { ToastContainer } from 'react-toastify'
 import AuthProvider from './Context/AuthProvider.jsx'
 import MovieDetails from './Components/Movie Details/MovieDetails.jsx'
-import EditMovie from './Components/Movie Details/Edit Movie/EditMovie.jsx'
 import AddMovie from './Components/Add Movie/AddMovie.jsx'
 import PrivetRoute from './Privet Route/PrivetRoute.jsx'
+import UpdateMovie from './Components/Update Movie/UpdateMovie.jsx'
 
 
 const router = createBrowserRouter([
@@ -40,7 +40,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/addmovie',
-        Component: AddMovie
+        element: (
+          <PrivetRoute>
+            <AddMovie/>
+          </PrivetRoute>
+        ) 
       },
       {
         path: '/login',
@@ -59,15 +63,17 @@ const router = createBrowserRouter([
         Component: MovieDetails
       },
       {
-        path: '/edit-movie/:id',
-        Component: EditMovie
+        path: '/updatemovie',
+        Component: UpdateMovie
       },
       {
-        path: '/movies',
-        Component: AllMovies,
+        path: '/update',
+        Component: UpdateMovie
       },
-      
-
+      {
+        path: '/update/:id',
+        Component: UpdateMovie
+      }
     ]
   }
 ])
