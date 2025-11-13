@@ -69,12 +69,12 @@ const AddMovie = () => {
     };
 
     return (
-        <div className="flex justify-center items-start min-h-screen p-6 bg-[#0f0f0f]">
+        <div className="flex justify-center items-center min-h-[calc(100vh-160px)] p-6 bg-[#0f0f0f]">
             <div
                 className="card w-full max-w-xl p-6 rounded-xl shadow-2xl
-               bg-gradient-to-br from-[#2e001f] to-[#3a001f]
-               hover:from-[#500033] hover:to-[#6a0033]
-               transition-all duration-700 ease-in-out"
+       bg-gradient-to-br from-[#2e001f] to-[#3a001f]
+       hover:from-[#500033] hover:to-[#6a0033]
+       transition-all duration-700 ease-in-out"
             >
                 <h2 className="text-2xl font-bold text-center mb-6 text-[#f3e6f0]">
                     Add New Movie
@@ -125,7 +125,7 @@ const AddMovie = () => {
                         />
                     </div>
 
-                    {/* RIGN*/}
+                    {/* Right Column */}
                     <div className="flex flex-col gap-3">
                         <input
                             type="number"
@@ -170,7 +170,7 @@ const AddMovie = () => {
                         />
                     </div>
 
-                    {/* FULL WIDTH TEXT AREA*/}
+                    {/* FULL WIDTH TEXT AREA */}
                     <div className="col-span-1 md:col-span-2">
                         <textarea
                             name="plotSummary"
@@ -186,9 +186,9 @@ const AddMovie = () => {
                         <button
                             type="submit"
                             className="w-full px-6 py-3 font-semibold text-white rounded-lg 
-                     bg-gradient-to-r from-[#4a001f] to-[#33001a] 
-                     hover:from-[#770033] hover:to-[#550022] 
-                     transition-all duration-500 ease-in-out transform hover:scale-105 shadow-lg text-1xl"
+                 bg-gradient-to-r from-[#4a001f] to-[#33001a] 
+                 hover:from-[#770033] hover:to-[#550022] 
+                 transition-all duration-500 ease-in-out transform hover:scale-105 shadow-lg text-1xl"
                         >
                             Submit
                         </button>

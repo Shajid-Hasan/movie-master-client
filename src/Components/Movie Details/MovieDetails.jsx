@@ -27,7 +27,7 @@ const MovieDetails = () => {
 
     const handelDelete = () => {
 
-        
+
 
         Swal.fire({
             title: "Are you sure?",
@@ -66,11 +66,11 @@ const MovieDetails = () => {
     if (!movie) return <p className="text-center text-white text-lg mt-20">Movie not found</p>;
 
     return (
-        <div className="flex justify-center items-center min-h-[calc(100vh-80px)] bg-[#1b1b1b] p-6">
-            <div className="card bg-base-100 text-gray-900 shadow-2xl rounded-2xl flex flex-col md:flex-row w-full max-w-5xl h-[550px] overflow-hidden">
+        <div className="flex justify-center items-center min-h-[calc(100vh-80px)] bg-[#1b1b1b] p-4 sm:p-6">
+            <div className="card bg-base-100 text-gray-900 shadow-2xl rounded-2xl flex flex-col md:flex-row w-full max-w-5xl overflow-hidden">
 
                 {/* Left: Movie Poster */}
-                <div className="md:w-1/2 w-full h-full">
+                <div className="w-full md:w-1/2 h-[280px] sm:h-[350px] md:h-auto">
                     <img
                         src={movie.posterUrl}
                         alt={movie.title}
@@ -79,25 +79,31 @@ const MovieDetails = () => {
                 </div>
 
                 {/* Right: Movie Details */}
-                <div className="md:w-1/2 w-full p-8 flex flex-col justify-between md:ml-8">
+                <div className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
                     <div>
-                        <h2 className="card-title text-2xl font-bold mb-3 text-[#5A0000]">
+                        <h2 className="card-title text-2xl sm:text-2xl font-bold mb-3 text-[#5A0000]">
                             {movie.title}
                             <div className="badge badge-secondary ml-2">{movie.genre}</div>
                         </h2>
 
-                        <p className="mb-2"><strong>Rating:</strong> ⭐ {movie.rating}</p>
-                        <p className="mb-2"><strong>Release Year:</strong> 🎬 {movie.releaseYear}</p>
-                        <p className="mb-2"><strong>Director:</strong> 🎬 {movie.director}</p>
-                        <p className="mb-2"><strong>Cast:</strong> 🎬 {movie.cast}</p>
-                        <p className="mb-2"><strong>Description:</strong> {movie.plotSummary || "No description available."}</p>
-                        <p className="mb-2"><strong>Added By:</strong> {movie.addedBy || "Unknown"}</p>
+                        <p className="mb-2 text-sm sm:text-base"><strong>Rating:</strong> ⭐ {movie.rating}</p>
+                        <p className="mb-2 text-sm sm:text-base"><strong>Release Year:</strong> 🎬 {movie.releaseYear}</p>
+                        <p className="mb-2 text-sm sm:text-base"><strong>Director:</strong> 🎬 {movie.director}</p>
+                        <p className="mb-2 text-sm sm:text-base"><strong>Cast:</strong> 🎬 {movie.cast}</p>
+                        <p className="mb-2 text-sm sm:text-base leading-relaxed">
+                            <strong>Description:</strong> {movie.plotSummary || "No description available."}
+                        </p>
+                        <p className="mb-2 text-sm sm:text-base"><strong>Added By:</strong> {movie.addedBy || "Unknown"}</p>
                     </div>
 
-                    {/* Buttons section (unchanged) */}
-                    <div className="flex justify-end gap-8 mt-4">
-                        <Link to={`/edit-movie/${movie._id}`}><Edit/></Link>
-                        <button onClick={handelDelete}><Delete /></button>
+                    {/* Buttons section */}
+                    <div className="flex justify-end gap-5 mt-5">
+                        <Link to={`/edit-movie/${movie._id}`}>
+                            <Edit />
+                        </Link>
+                        <button onClick={handelDelete}>
+                            <Delete />
+                        </button>
                     </div>
                 </div>
             </div>

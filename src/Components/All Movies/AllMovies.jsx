@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import styled from "styled-components";
-import FilteredMovies from "../Filter Movie/FilteredMovies";
 
 const AllMovies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/movies")
@@ -25,7 +23,7 @@ const AllMovies = () => {
 
   return (
     <StyledWrapper>
-      <h1 className="page-title">All Movies</h1>
+      {/* <h1 className="page-title">All Movies</h1> */}
       <div className="movie-grid">
         {movies.map((movie) => (
           <div className="card" key={movie._id}>
@@ -65,20 +63,24 @@ const StyledWrapper = styled.div`
     text-shadow: 0 0 10px rgba(255, 153, 51, 0.6);
   }
 
+  /* 🔹 Responsive Grid Layout */
   .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
     justify-items: center;
+    width: 100%;
   }
 
+  /* 🔹 Movie Card */
   .card {
-    width: 220px;
+    width: 100%;
+    max-width: 320px;
     background: #1c1c1c;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 0 15px rgba(255, 153, 51, 0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 18px rgba(255, 153, 51, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .card:hover {
@@ -86,19 +88,21 @@ const StyledWrapper = styled.div`
     box-shadow: 0 0 25px rgba(255, 153, 51, 0.4);
   }
 
+  /* 🔹 Poster Image */
   .poster {
     width: 100%;
-    height: 300px;
+    height: 380px;
     object-fit: cover;
   }
 
+  /* 🔹 Movie Info */
   .movie-info {
-    padding: 10px 12px;
+    padding: 14px;
     text-align: center;
   }
 
   .title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 6px;
     color: #ffcc66;
@@ -107,14 +111,15 @@ const StyledWrapper = styled.div`
   .rating,
   .genre,
   .year {
-    font-size: 0.95rem;
+    font-size: 1rem;
     margin: 2px 0;
-    color: #fff;
+    color: #ddd;
   }
 
+  /* 🔹 Details Button */
   .details-btn {
-    margin-top: 8px;
-    padding: 6px 12px;
+    margin-top: 10px;
+    padding: 8px 16px;
     background: linear-gradient(135deg, #993300 0%, #cc6600 60%, #ff9933 100%);
     border: none;
     border-radius: 8px;
@@ -125,14 +130,40 @@ const StyledWrapper = styled.div`
   }
 
   .details-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(255, 153, 51, 0.5);
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(255, 153, 51, 0.5);
   }
 
+  /* 🔹 Loading Text */
   .loading {
     text-align: center;
     font-size: 1.2rem;
     color: #999;
     margin-top: 100px;
+  }
+
+  /* 🔹 Responsive Breakpoints */
+  @media (max-width: 1024px) {
+    .poster {
+      height: 320px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .poster {
+      height: 280px;
+    }
+    .card {
+      max-width: 260px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .poster {
+      height: 240px;
+    }
+    .card {
+      max-width: 100%;
+    }
   }
 `;

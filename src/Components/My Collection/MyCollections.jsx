@@ -60,26 +60,27 @@ const MyCollections = () => {
 
     return (
         <div className="min-h-screen bg-[#1b1b1b] p-6">
-            {/* <h2 className="text-3xl font-bold text-center text-white mb-6">
-                My Movie Collection
-            </h2> */}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-items-center">
                 {movies.map((movie) => (
                     <div
                         key={movie._id}
-                        className="card bg-[#292929] shadow-xl overflow-hidden rounded-xl w-72 flex flex-col"
+                        tabIndex={0} // Makes the card focusable via keyboard
+                        className="card bg-[#292929] shadow-xl overflow-hidden rounded-xl 
+                   w-100 sm:w-85 md:w-73 lg:w-83 flex flex-col
+                   transform transition-all duration-500 ease-in-out
+                   hover:scale-105 hover:shadow-2xl focus:scale-105 focus:shadow-2xl"
                     >
                         <div className="h-64 overflow-hidden">
                             <img
                                 src={movie.posterUrl}
                                 alt={movie.title}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover transition-transform duration-500 ease-in-out
+                       hover:scale-110 focus:scale-110"
                             />
                         </div>
                         <div className="p-4 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 className="text-lg font-bold mb-1 text-white truncate">
+                                <h3 className="text-2xl font-bold mb-1 text-[#a00d0d] truncate">
                                     {movie.title}
                                 </h3>
                                 <p className="text-gray-400 mb-1 truncate">{movie.genre}</p>
@@ -107,6 +108,7 @@ const MyCollections = () => {
                 ))}
             </div>
         </div>
+
     );
 };
 
