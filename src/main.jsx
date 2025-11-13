@@ -15,6 +15,7 @@ import AddMovie from './Components/Add Movie/AddMovie.jsx'
 import PrivetRoute from './Privet Route/PrivetRoute.jsx'
 import UpdateMovie from './Components/Update Movie/UpdateMovie.jsx'
 import NotFound from './Pages/Not Found/NotFound.jsx'
+import ErrorBoundary from './Components/Error Boundary/ErrorBoundary.jsx'
 
 
 const router = createBrowserRouter([
@@ -93,9 +94,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
-      <ToastContainer />
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <RouterProvider router={router}></RouterProvider>
+        <ToastContainer />
+      </AuthProvider>
+    </ErrorBoundary>
   </StrictMode>
 );
