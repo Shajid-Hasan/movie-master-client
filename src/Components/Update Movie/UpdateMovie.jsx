@@ -29,7 +29,7 @@ const UpdateMovie = () => {
         fetch(`http://localhost:3000/movies/${id}`)
             .then((res) => res.json())
             .then((data) => {
-                if (!data || !data._id) {
+                if (!data || !(data._id || data.id)) {
                     toast.error("Movie not found!");
                     setLoading(false);
                     return;
@@ -98,7 +98,7 @@ const UpdateMovie = () => {
         <div className="flex justify-center items-center min-h-screen bg-[#1b1b1b] p-6">
             <div className="card w-full max-w-2xl bg-base-100 shadow-2xl p-6 rounded-xl">
                 <h2 className="text-3xl font-bold text-center mb-6 text-[#5A0000]">
-                    Edit Movie
+                    Update Movie
                 </h2>
 
                 <form

@@ -14,6 +14,7 @@ import MovieDetails from './Components/Movie Details/MovieDetails.jsx'
 import AddMovie from './Components/Add Movie/AddMovie.jsx'
 import PrivetRoute from './Privet Route/PrivetRoute.jsx'
 import UpdateMovie from './Components/Update Movie/UpdateMovie.jsx'
+import NotFound from './Pages/Not Found/NotFound.jsx'
 
 
 const router = createBrowserRouter([
@@ -60,7 +61,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/details/:id',
-        Component: MovieDetails
+        element: (
+          <PrivetRoute>
+            <MovieDetails/>
+          </PrivetRoute>
+        )
       },
       {
         path: '/updatemovie',
@@ -77,6 +82,10 @@ const router = createBrowserRouter([
             <UpdateMovie/>
           </PrivetRoute>
         )
+      },
+      {
+        path: '*',
+        Component: NotFound
       }
     ]
   }

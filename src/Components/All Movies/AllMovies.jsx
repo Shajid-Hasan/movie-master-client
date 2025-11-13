@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import styled from "styled-components";
+import FilteredMovies from "../Filter Movie/FilteredMovies";
 
 const AllMovies = () => {
   const [movies, setMovies] = useState([]);
