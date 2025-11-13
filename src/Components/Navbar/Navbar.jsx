@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { AuthContext } from '../../Context/Authentication';
 import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
-import ThemeToggle from './Theme Toggle/ThemeToggle';
+import ThemeToggle from './Theme Button/ThemeToggle';
 
 const Navbar = () => {
   const { user, setUser, signOutFunc, loading } = useContext(AuthContext);
@@ -102,7 +102,7 @@ const Navbar = () => {
         ) : (
           <div className="navbar-end gap-2">
             <Link to="/login" className='flex justify-between gap-5'>
-              <ThemeToggle />
+              <ThemeToggle/>
               <LoginButton />
             </Link>
             <Link to="/register">

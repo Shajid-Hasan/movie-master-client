@@ -15,8 +15,8 @@ import AddMovie from './Components/Add Movie/AddMovie.jsx'
 import PrivetRoute from './Privet Route/PrivetRoute.jsx'
 import NotFound from './Pages/Not Found/NotFound.jsx'
 import ErrorBoundary from './Components/Error Boundary/ErrorBoundary.jsx'
-import ThemeProvider from './Context/ThemeContextProvider.jsx'
 import EditMovie from './Components/Movie Details/Edit Movie/EditMovie.jsx'
+import { ThemeProvider } from 'next-themes'
 
 
 const router = createBrowserRouter([
@@ -71,30 +71,21 @@ const router = createBrowserRouter([
       },
       { 
         path: "/movies/:id", 
-        element: <MovieDetails /> 
+        element: (
+          <PrivetRoute>
+            <MovieDetails />
+          </PrivetRoute>
+        ) 
       },
       
       {
         path: "/edit-movie/:id",
-        Component: EditMovie
+        element: (
+          <PrivetRoute>
+            <EditMovie/>
+          </PrivetRoute>
+        )
       },
-
-      // {
-      //   path: '/updatemovie',
-      //   element: (
-      //     <PrivetRoute>
-      //       <UpdateMovie/>
-      //     </PrivetRoute>
-      //   ) 
-      // },
-      // {
-      //   path: '/update/:id',
-      //   element: (
-      //     <PrivetRoute>
-      //       <UpdateMovie/>
-      //     </PrivetRoute>
-      //   )
-      // },
       {
         path: '*',
         Component: NotFound
@@ -106,7 +97,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
-      <ThemeProvider>
+      <ThemeProvider attribute='class' defaultTheme='light'>
       <AuthProvider>
           <RouterProvider router={router}></RouterProvider>
           <ToastContainer />
