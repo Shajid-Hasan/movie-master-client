@@ -67,7 +67,7 @@ const Register = () => {
                       console.log(user)
 
                       // CREATE USER IN THE DATABASE
-                      fetch('http://localhost:3000/users', {
+                      fetch('https://movie-master-server-nine.vercel.app/users', {
                         method: 'POST',
                         headers: {
                           'content-type': 'application/json'
@@ -98,7 +98,7 @@ const Register = () => {
                     setUser(res.user)
                     toast.success('Register with google succesfully')
                 
-                  fetch('http://localhost:3000/users', {
+                  fetch('https://movie-master-server-nine.vercel.app/users', {
                     method: 'POST',
                     headers: {
                       'content-type': 'application/json'

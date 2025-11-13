@@ -13,7 +13,7 @@ const MovieDetails = () => {
 
     // Fetch movie details
     useEffect(() => {
-        fetch(`http://localhost:3000/movies/${id}`)
+        fetch(`https://movie-master-server-nine.vercel.app/movies/${id}`)
             .then(res => res.json())
             .then(data => {
                 setMovie(data);
@@ -39,7 +39,7 @@ const MovieDetails = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/movies/${movie._id}`, {
+                fetch(`https://movie-master-server-nine.vercel.app/movies/${movie._id}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const MovieDetails = () => {
     if (!movie) return <p className="text-center text-white text-lg mt-20">Movie not found</p>;
 
     return (
-        <div className="flex justify-center items-center min-h-[calc(100vh-80px)] bg-[#1b1b1b] p-4 sm:p-6">
+        <div className="flex justify-center items-center min-h-[calc(100vh-80px)] bg-[#ffff] p-4 sm:p-6">
             <div className="card bg-base-100 text-gray-900 shadow-2xl rounded-2xl flex flex-col md:flex-row w-full max-w-5xl overflow-hidden">
 
                 {/* Left: Movie Poster */}

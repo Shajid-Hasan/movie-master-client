@@ -7,7 +7,7 @@ const Hero = () => {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/poster")
+        fetch("https://movie-master-server-nine.vercel.app/poster")
             .then((res) => res.json())
             .then((data) => setMovies(data))
             .catch((err) => console.error("Failed to fetch movies:", err));

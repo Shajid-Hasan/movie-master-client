@@ -71,10 +71,13 @@ const Navbar = () => {
         </div>
 
         {/* RIGHT SECTION */}
-        {loading ? <Loading/> 
-        
-        : user ? (
-          <div className="navbar-end relative">
+        {loading ? (
+          <Loading />
+        ) : user ? (
+          <div className="navbar-end relative flex items-center gap-3"> {/* flex + items-center vertically aligns */}
+            {/* Theme Toggle button */}
+            <ThemeToggle />
+
             {/* Profile picture */}
             <img
               src={user?.photoURL || 'https://via.placeholder.com/88'}
@@ -83,9 +86,9 @@ const Navbar = () => {
               onClick={() => setOpenDropdown(!openDropdown)}
             />
 
-            {/* DROPDOWN*/}
+            {/* DROPDOWN */}
             {openDropdown && (
-              <div className="absolute right-0 mt-35 w-52 bg-[#1f1f1f] rounded-lg shadow-lg border border-gray-700 z-50">
+              <div className="absolute right-0 mt-12 w-52 bg-[#1f1f1f] rounded-lg shadow-lg border border-gray-700 z-50">
                 <div className="p-3 border-b border-gray-600 text-white text-sm">
                   <p className="font-semibold">{user?.displayName}</p>
                   <p className="text-gray-400 text-xs">{user.email}</p>
@@ -100,9 +103,10 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          <div className="navbar-end gap-2">
-            <Link to="/login" className='flex justify-between gap-5'>
-              <ThemeToggle />
+          <div className="navbar-end flex items-center gap-3">
+            {/* Theme button beside login/register */}
+            <ThemeToggle />
+            <Link to="/login">
               <LoginButton />
             </Link>
             <Link to="/register">

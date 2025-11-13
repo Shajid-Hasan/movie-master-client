@@ -8,12 +8,12 @@ const Statistics = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchMovies = fetch("http://localhost:3000/movies")
+        const fetchMovies = fetch("https://movie-master-server-nine.vercel.app/movies")
             .then((res) => res.json())
             .then((data) => setTotalMovies(data.length))
             .catch(() => toast.error("Failed to fetch movies!"));
 
-        const fetchUsers = fetch("http://localhost:3000/users")
+        const fetchUsers = fetch("https://movie-master-server-nine.vercel.app/users")
             .then((res) => res.json())
             .then((data) => setTotalUsers(data.length))
             .catch(() => toast.error("Failed to fetch users!"));

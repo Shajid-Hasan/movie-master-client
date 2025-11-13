@@ -69,7 +69,7 @@ const AddMovie = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-[calc(100vh-160px)] p-6 bg-[#0f0f0f]">
+        <div className="flex justify-center items-center min-h-[calc(100vh-160px)] p-6 bg-[#ffff]">
     <div
         className="card w-full max-w-xl p-6 rounded-xl shadow-2xl
        bg-gradient-to-br from-[#2e001f] to-[#3a001f]

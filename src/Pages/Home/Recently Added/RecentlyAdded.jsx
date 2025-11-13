@@ -5,7 +5,7 @@ const RecentlyAdded = () => {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/movies")
+      fetch("https://movie-master-server-nine.vercel.app/movies")
             .then((res) => res.json())
             .then((data) => {
                 const latest = data.slice(-6).reverse();

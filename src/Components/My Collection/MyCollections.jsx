@@ -10,7 +10,7 @@ const MyCollections = () => {
 
     // Fetch all movies and filter by logged-in user
     useEffect(() => {
-        fetch("http://localhost:3000/movies")
+        fetch("https://movie-master-server-nine.vercel.app/movies")
             .then((res) => res.json())
             .then((data) => {
                 const myMovies = data.filter((movie) => movie.addedBy === user.email);
@@ -30,7 +30,7 @@ const MyCollections = () => {
         );
         if (!confirmDelete) return;
 
-        fetch(`http://localhost:3000/movies/${id}`, {
+        fetch(`https://movie-master-server-nine.vercel.app/movies/${id}`, {
             method: "DELETE",
         })
             .then((res) => {
@@ -59,7 +59,7 @@ const MyCollections = () => {
         );
 
     return (
-        <div className="min-h-screen bg-[#1b1b1b] p-6">
+        <div className="min-h-screen bg-[#ffff] p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-items-center">
                 {movies.map((movie) => (
                     <div

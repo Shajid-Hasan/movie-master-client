@@ -6,7 +6,7 @@ const TopRatedMovies = () => {
 
     // FATCH BACKEND API
     useEffect(() => {
-        fetch("http://localhost:3000/movies")
+        fetch("https://movie-master-server-nine.vercel.app/movies")
             .then((res) => res.json())
             .then((data) => {
                 const sorted = data.sort((a, b) => b.rating - a.rating);

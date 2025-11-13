@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import styled from "styled-components";
+import ThemeToggle from "../Navbar/Theme Button/ThemeToggle";
 
 const AllMovies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/movies")
+    fetch("https://movie-master-server-nine.vercel.app/movies")
       .then((res) => res.json())
       .then((data) => {
         setMovies(data);
@@ -50,7 +51,7 @@ const AllMovies = () => {
 export default AllMovies;
 
 const StyledWrapper = styled.div`
-  background-color: #0b0b0b;
+  background-color: #ffff;
   color: #fff;
   padding: 50px 20px;
   font-family: "Poppins", sans-serif;

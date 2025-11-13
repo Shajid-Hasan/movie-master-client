@@ -27,7 +27,7 @@ const EditMovie = () => {
 
     // FATCH FROM BACKEND
     useEffect(() => {
-        fetch(`http://localhost:3000/movies/${id}`)
+        fetch(`https://movie-master-server-nine.vercel.app/movies/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 if (!data || !data._id) {
@@ -74,7 +74,7 @@ const EditMovie = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:3000/movies/${id}`, {
+        fetch(`https://movie-master-server-nine.vercel.app/movies/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(movie),
@@ -98,7 +98,7 @@ const EditMovie = () => {
         );
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-[#1b1b1b] p-6">
+        <div className="flex justify-center items-center min-h-screen bg-[#ffff] p-6">
             <div className="card w-full max-w-2xl bg-base-100 shadow-2xl p-6 rounded-xl">
                 <h2 className="text-3xl font-bold text-center mb-6 text-[#5A0000]">
                     Update Movie
