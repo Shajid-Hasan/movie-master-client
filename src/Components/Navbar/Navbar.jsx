@@ -102,7 +102,7 @@ const Navbar = () => {
         ) : (
           <div className="navbar-end gap-2">
             <Link to="/login" className='flex justify-between gap-5'>
-              <ThemeToggle/>
+              <ThemeToggle />
               <LoginButton />
             </Link>
             <Link to="/register">
