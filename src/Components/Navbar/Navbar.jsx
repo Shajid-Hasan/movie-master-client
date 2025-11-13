@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { AuthContext } from '../../Context/Authentication';
 import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
+import ThemeToggle from './Theme Toggle/ThemeToggle';
 
 const Navbar = () => {
   const { user, setUser, signOutFunc, loading } = useContext(AuthContext);
@@ -33,9 +34,6 @@ const Navbar = () => {
       }
       {
         user && (<li><NavLink to="/addmovie" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Add Movie</NavLink></li>)
-      }
-      {
-        user && (<li><NavLink to="/updatemovie" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Update Movie</NavLink></li>)
       }
     </>
   );
@@ -103,7 +101,8 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="navbar-end gap-2">
-            <Link to="/login">
+            <Link to="/login" className='flex justify-between gap-5'>
+              <ThemeToggle />
               <LoginButton />
             </Link>
             <Link to="/register">

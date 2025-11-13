@@ -13,9 +13,10 @@ import AuthProvider from './Context/AuthProvider.jsx'
 import MovieDetails from './Components/Movie Details/MovieDetails.jsx'
 import AddMovie from './Components/Add Movie/AddMovie.jsx'
 import PrivetRoute from './Privet Route/PrivetRoute.jsx'
-import UpdateMovie from './Components/Update Movie/UpdateMovie.jsx'
 import NotFound from './Pages/Not Found/NotFound.jsx'
 import ErrorBoundary from './Components/Error Boundary/ErrorBoundary.jsx'
+import ThemeProvider from './Context/ThemeContextProvider.jsx'
+import EditMovie from './Components/Movie Details/Edit Movie/EditMovie.jsx'
 
 
 const router = createBrowserRouter([
@@ -68,22 +69,32 @@ const router = createBrowserRouter([
           </PrivetRoute>
         )
       },
-      {
-        path: '/updatemovie',
-        element: (
-          <PrivetRoute>
-            <UpdateMovie/>
-          </PrivetRoute>
-        ) 
+      { 
+        path: "/movies/:id", 
+        element: <MovieDetails /> 
       },
+      
       {
-        path: '/update/:id',
-        element: (
-          <PrivetRoute>
-            <UpdateMovie/>
-          </PrivetRoute>
-        )
+        path: "/edit-movie/:id",
+        Component: EditMovie
       },
+
+      // {
+      //   path: '/updatemovie',
+      //   element: (
+      //     <PrivetRoute>
+      //       <UpdateMovie/>
+      //     </PrivetRoute>
+      //   ) 
+      // },
+      // {
+      //   path: '/update/:id',
+      //   element: (
+      //     <PrivetRoute>
+      //       <UpdateMovie/>
+      //     </PrivetRoute>
+      //   )
+      // },
       {
         path: '*',
         Component: NotFound
@@ -95,10 +106,13 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
+      <ThemeProvider>
       <AuthProvider>
-        <RouterProvider router={router}></RouterProvider>
-        <ToastContainer />
+          <RouterProvider router={router}></RouterProvider>
+          <ToastContainer />
       </AuthProvider>
-    </ErrorBoundary>
+      </ThemeProvider>
+      </ErrorBoundary>
+
   </StrictMode>
 );

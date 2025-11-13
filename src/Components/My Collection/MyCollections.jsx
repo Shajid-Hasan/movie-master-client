@@ -90,7 +90,7 @@ const MyCollections = () => {
                             {/* EDIT && DELETE BUTTON */}
                             <div className="flex justify-between mt-4">
                                 <Link
-                                    to={`/update/${movie._id}`}
+                                    to={`/movies/${movie._id}`}
                                     className="btn btn-sm btn-primary w-1/2 mr-2"
                                 >
                                     Edit

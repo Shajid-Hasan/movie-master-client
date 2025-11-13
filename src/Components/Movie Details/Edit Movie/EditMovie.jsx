@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../Context/Authentication";
+import { AuthContext } from "../../../Context/Authentication";
 
-const UpdateMovie = () => {
+const EditMovie = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -25,11 +25,12 @@ const UpdateMovie = () => {
 
     const [loading, setLoading] = useState(true);
 
+    // FATCH FROM BACKEND
     useEffect(() => {
         fetch(`http://localhost:3000/movies/${id}`)
             .then((res) => res.json())
             .then((data) => {
-                if (!data || !(data._id || data.id)) {
+                if (!data || !data._id) {
                     toast.error("Movie not found!");
                     setLoading(false);
                     return;
@@ -63,11 +64,13 @@ const UpdateMovie = () => {
             });
     }, [id, user]);
 
+    // HANDEL FORM CHANGE
     const handleChange = (e) => {
         const { name, value } = e.target;
         setMovie((prev) => ({ ...prev, [name]: value }));
     };
 
+    // HANDEL MOVIE UPDATE
     const handleUpdate = (e) => {
         e.preventDefault();
 
@@ -221,11 +224,11 @@ const UpdateMovie = () => {
                         <button
                             type="submit"
                             className="w-full md:w-auto px-6 py-3 font-semibold text-white rounded-lg 
-                        bg-gradient-to-r from-[#4d0000] to-[#330000] 
-                        hover:from-[#770000] hover:to-[#550000] 
-                        transition-all duration-500 ease-in-out transform hover:scale-105 shadow-lg"
+              bg-gradient-to-r from-[#4d0000] to-[#330000] 
+              hover:from-[#770000] hover:to-[#550000] 
+              transition-all duration-500 ease-in-out transform hover:scale-105 shadow-lg"
                         >
-                            Update Movie
+                            Update
                         </button>
 
                         <Link
@@ -241,4 +244,4 @@ const UpdateMovie = () => {
     );
 };
 
-export default UpdateMovie;
+export default EditMovie;
