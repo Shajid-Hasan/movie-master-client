@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/Authentication";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 
 const AddMovie = () => {
     const { user } = useContext(AuthContext);
+    const { theme } = useTheme(); // Get current theme
 
     const [movie, setMovie] = useState({
         title: "",
@@ -19,26 +22,19 @@ const AddMovie = () => {
         country: "",
     });
 
-    // handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setMovie({ ...movie, [name]: value });
     };
 
-    // handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // validation
         if (!movie.title || !movie.genre || !movie.releaseYear || !movie.rating) {
             toast.error("Please fill all required fields!");
             return;
         }
 
-        const newMovie = {
-            ...movie,
-            addedBy: user?.email || "anonymous",
-        };
+        const newMovie = { ...movie, addedBy: user?.email || "anonymous" };
 
         fetch("https://movie-master-server-nine.vercel.app/movies", {
             method: "POST",
@@ -69,135 +65,197 @@ const AddMovie = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-[calc(100vh-160px)] p-6 bg-[#ffff]">
-    <div
-        className="card w-full max-w-xl p-6 rounded-xl shadow-2xl
-       bg-gradient-to-br from-[#2e001f] to-[#3a001f]
-       hover:from-[#500033] hover:to-[#6a0033]
-       transition-all duration-700 ease-in-out"
-    >
-        <h2 className="text-2xl font-bold text-center mb-6 text-[#f3e6f0]">
-            Add New Movie
-        </h2>
+        <motion.div
+            className="min-h-[calc(100vh-160px)] flex flex-col items-center p-6 transition-colors duration-500"
+            style={{
+                backgroundColor: theme === "light" ? "#f5f5f5" : "#121212",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
+        >
+            
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Left Column */}
-            <div className="flex flex-col gap-3">
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Title *"
-                    value={movie.title}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="text"
-                    name="genre"
-                    placeholder="Genre *"
-                    value={movie.genre}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="number"
-                    name="releaseYear"
-                    placeholder="Release Year *"
-                    value={movie.releaseYear}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="text"
-                    name="director"
-                    placeholder="Director"
-                    value={movie.director}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="text"
-                    name="cast"
-                    placeholder="Cast (comma separated)"
-                    value={movie.cast}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-            </div>
-
-            {/* Right Column */}
-            <div className="flex flex-col gap-3">
-                <input
-                    type="number"
-                    step="0.1"
-                    name="rating"
-                    placeholder="Rating *"
-                    value={movie.rating}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="number"
-                    name="duration"
-                    placeholder="Duration (minutes)"
-                    value={movie.duration}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="text"
-                    name="language"
-                    placeholder="Language"
-                    value={movie.language}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="text"
-                    name="country"
-                    placeholder="Country"
-                    value={movie.country}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-                <input
-                    type="text"
-                    name="posterUrl"
-                    placeholder="Poster URL"
-                    value={movie.posterUrl}
-                    onChange={handleChange}
-                    className="input input-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-            </div>
-
-            {/* FULL WIDTH TEXT AREA */}
-            <div className="col-span-1 md:col-span-2">
-                <textarea
-                    name="plotSummary"
-                    placeholder="Plot Summary"
-                    value={movie.plotSummary}
-                    onChange={handleChange}
-                    className="textarea textarea-bordered w-full bg-[#1a0014] text-[#f3e6f0]"
-                />
-            </div>
-
-            {/* SUBMIT BUTTON */}
-            <div className="col-span-1 md:col-span-2 flex justify-center mt-4">
-                <button
-                    type="submit"
-                    className="w-full px-6 py-3 font-semibold text-white rounded-lg 
-                 bg-gradient-to-r from-[#4a001f] to-[#33001a] 
-                 hover:from-[#770033] hover:to-[#550022] 
-                 transition-all duration-500 ease-in-out transform hover:scale-105 shadow-lg text-1xl"
+            <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.7 }}
+                className={`card w-full max-w-xl p-6 rounded-xl shadow-2xl transition-colors duration-500`}
+                style={{
+                    backgroundColor: theme === "light" ? "#ffffff" : "#1a0014",
+                }}
+            >
+                <h2
+                    className="text-2xl font-bold text-center mb-6"
+                    style={{ color: theme === "light" ? "#5A0000" : "#f3e6f0" }}
                 >
-                    Submit
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
+                    Add New Movie
+                </h2>
 
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Left Column */}
+                    <div className="flex flex-col gap-3">
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Title *"
+                            value={movie.title}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="text"
+                            name="genre"
+                            placeholder="Genre *"
+                            value={movie.genre}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="number"
+                            name="releaseYear"
+                            placeholder="Release Year *"
+                            value={movie.releaseYear}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="text"
+                            name="director"
+                            placeholder="Director"
+                            value={movie.director}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="text"
+                            name="cast"
+                            placeholder="Cast (comma separated)"
+                            value={movie.cast}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                    </div>
 
+                    {/* Right Column */}
+                    <div className="flex flex-col gap-3">
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="rating"
+                            placeholder="Rating *"
+                            value={movie.rating}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="number"
+                            name="duration"
+                            placeholder="Duration (minutes)"
+                            value={movie.duration}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="text"
+                            name="language"
+                            placeholder="Language"
+                            value={movie.language}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="text"
+                            name="country"
+                            placeholder="Country"
+                            value={movie.country}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                        <input
+                            type="text"
+                            name="posterUrl"
+                            placeholder="Poster URL"
+                            value={movie.posterUrl}
+                            onChange={handleChange}
+                            className="input input-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                    </div>
+
+                    {/* Plot Summary */}
+                    <div className="col-span-1 md:col-span-2">
+                        <textarea
+                            name="plotSummary"
+                            placeholder="Plot Summary"
+                            value={movie.plotSummary}
+                            onChange={handleChange}
+                            className="textarea textarea-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
+                        />
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="col-span-1 md:col-span-2 flex justify-center mt-4">
+                        <motion.button
+                            type="submit"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-full px-6 py-3 font-semibold rounded-lg shadow-lg text-white transition-all duration-500"
+                            style={{
+                                background: theme === "light"
+                                    ? "linear-gradient(to right, #4a001f, #33001a)"
+                                    : "linear-gradient(to right, #770033, #550022)",
+                            }}
+                        >
+                            Submit
+                        </motion.button>
+                    </div>
+                </form>
+            </motion.div>
+        </motion.div>
     );
 };
 

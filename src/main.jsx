@@ -17,6 +17,8 @@ import NotFound from './Pages/Not Found/NotFound.jsx'
 import ErrorBoundary from './Components/Error Boundary/ErrorBoundary.jsx'
 import EditMovie from './Components/Movie Details/Edit Movie/EditMovie.jsx'
 import { ThemeProvider } from 'next-themes'
+import { Contact } from 'lucide-react'
+import ContactUs from './Pages/Contact/Contact.jsx'
 
 
 const router = createBrowserRouter([
@@ -85,6 +87,10 @@ const router = createBrowserRouter([
             <EditMovie/>
           </PrivetRoute>
         )
+      },
+      {
+        path: "contact",
+        Component: ContactUs
       },
       {
         path: '*',

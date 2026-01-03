@@ -1,246 +1,163 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router";
+import React, { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import { AuthContext } from "../../../Context/Authentication";
+import { useNavigate, useParams } from "react-router";
 
 const EditMovie = () => {
+    const { user } = useContext(AuthContext);
+    const { theme } = useTheme();
     const { id } = useParams();
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
 
     const [movie, setMovie] = useState({
         title: "",
         genre: "",
-        rating: "",
         releaseYear: "",
         director: "",
         cast: "",
+        rating: "",
         duration: "",
+        plotSummary: "",
+        posterUrl: "",
         language: "",
         country: "",
-        posterUrl: "",
-        plotSummary: "",
-        addedBy: "",
     });
 
-    const [loading, setLoading] = useState(true);
-
-    // FATCH FROM BACKEND
+    // Fetch existing movie
     useEffect(() => {
         fetch(`https://movie-master-server-nine.vercel.app/movies/${id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (!data || !data._id) {
-                    toast.error("Movie not found!");
-                    setLoading(false);
-                    return;
-                }
+            .then(res => res.json())
+            .then(data => setMovie(data))
+            .catch(() => toast.error("Failed to load movie data"));
+    }, [id]);
 
-                if (user?.email !== data.addedBy) {
-                    toast.error("You are not authorized to edit this movie!");
-                    setLoading(false);
-                    return;
-                }
-
-                setMovie({
-                    title: data.title || "",
-                    genre: data.genre || "",
-                    rating: data.rating || "",
-                    releaseYear: data.releaseYear || "",
-                    director: data.director || "",
-                    cast: data.cast || "",
-                    duration: data.duration || "",
-                    language: data.language || "",
-                    country: data.country || "",
-                    posterUrl: data.posterUrl || "",
-                    plotSummary: data.plotSummary || "",
-                    addedBy: data.addedBy || "",
-                });
-                setLoading(false);
-            })
-            .catch(() => {
-                toast.error("Failed to load movie details!");
-                setLoading(false);
-            });
-    }, [id, user]);
-
-    // HANDEL FORM CHANGE
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setMovie((prev) => ({ ...prev, [name]: value }));
+        setMovie({ ...movie, [name]: value });
     };
 
-    // HANDEL MOVIE UPDATE
-    const handleUpdate = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (!movie.title || !movie.genre || !movie.releaseYear || !movie.rating) {
+            toast.error("Please fill all required fields!");
+            return;
+        }
+
         fetch(`https://movie-master-server-nine.vercel.app/movies/${id}`, {
-            method: "PATCH",
+            method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(movie),
+            body: JSON.stringify({ ...movie, updatedBy: user?.email }),
         })
             .then((res) => {
                 if (res.ok) {
                     toast.success("Movie updated successfully!");
-                    navigate("/mycollections");
+                    navigate("/myMovies");
                 } else {
-                    toast.error("Failed to update movie!");
+                    toast.error("Update failed!");
                 }
             })
-            .catch(() => toast.error("Error while updating movie!"));
+            .catch(() => toast.error("Error updating movie!"));
     };
 
-    if (loading)
-        return (
-            <p className="text-center text-white text-lg mt-20">
-                Loading movie details...
-            </p>
-        );
-
     return (
-        <div className="flex justify-center items-center min-h-screen bg-[#ffff] p-6">
-            <div className="card w-full max-w-2xl bg-base-100 shadow-2xl p-6 rounded-xl">
-                <h2 className="text-3xl font-bold text-center mb-6 text-[#5A0000]">
-                    Update Movie
+        <motion.div
+            className="min-h-[calc(100vh-160px)] flex items-center justify-center p-6 transition-colors duration-500"
+            style={{ backgroundColor: theme === "light" ? "#f5f5f5" : "#121212" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
+        >
+            <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.7 }}
+                className="w-full max-w-xl p-6 rounded-xl shadow-2xl transition-colors duration-500"
+                style={{ backgroundColor: theme === "light" ? "#ffffff" : "#1a0014" }}
+            >
+                <h2
+                    className="text-2xl font-bold text-center mb-6"
+                    style={{ color: theme === "light" ? "#5A0000" : "#f3e6f0" }}
+                >
+                    Edit Movie
                 </h2>
 
-                <form
-                    onSubmit={handleUpdate}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                >
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Left Column */}
                     <div className="flex flex-col gap-3">
-                        <input
-                            type="text"
-                            name="title"
-                            value={movie.title}
-                            onChange={handleChange}
-                            placeholder="Title"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="text"
-                            name="genre"
-                            value={movie.genre}
-                            onChange={handleChange}
-                            placeholder="Genre"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="number"
-                            name="releaseYear"
-                            value={movie.releaseYear}
-                            onChange={handleChange}
-                            placeholder="Release Year"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="text"
-                            name="director"
-                            value={movie.director}
-                            onChange={handleChange}
-                            placeholder="Director"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="text"
-                            name="cast"
-                            value={movie.cast}
-                            onChange={handleChange}
-                            placeholder="Cast (comma separated)"
-                            className="input input-bordered w-full"
-                        />
+                        {["title", "genre", "releaseYear", "director", "cast"].map((field) => (
+                            <input
+                                key={field}
+                                type={field === "releaseYear" ? "number" : "text"}
+                                name={field}
+                                placeholder={field.replace(/([A-Z])/g, " $1")}
+                                value={movie[field] || ""}
+                                onChange={handleChange}
+                                className="input input-bordered w-full transition-colors duration-500"
+                                style={{
+                                    backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                    color: theme === "light" ? "#000" : "#f3e6f0",
+                                }}
+                            />
+                        ))}
                     </div>
 
                     {/* Right Column */}
                     <div className="flex flex-col gap-3">
-                        <input
-                            type="number"
-                            step="0.1"
-                            name="rating"
-                            value={movie.rating}
-                            onChange={handleChange}
-                            placeholder="Rating"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="number"
-                            name="duration"
-                            value={movie.duration}
-                            onChange={handleChange}
-                            placeholder="Duration (minutes)"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="text"
-                            name="language"
-                            value={movie.language}
-                            onChange={handleChange}
-                            placeholder="Language"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="text"
-                            name="country"
-                            value={movie.country}
-                            onChange={handleChange}
-                            placeholder="Country"
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="text"
-                            name="posterUrl"
-                            value={movie.posterUrl}
-                            onChange={handleChange}
-                            placeholder="Poster URL"
-                            className="input input-bordered w-full"
-                        />
+                        {["rating", "duration", "language", "country", "posterUrl"].map((field) => (
+                            <input
+                                key={field}
+                                type={field === "rating" || field === "duration" ? "number" : "text"}
+                                name={field}
+                                placeholder={field.replace(/([A-Z])/g, " $1")}
+                                value={movie[field] || ""}
+                                onChange={handleChange}
+                                className="input input-bordered w-full transition-colors duration-500"
+                                style={{
+                                    backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                    color: theme === "light" ? "#000" : "#f3e6f0",
+                                }}
+                            />
+                        ))}
                     </div>
 
                     {/* Plot Summary */}
                     <div className="col-span-1 md:col-span-2">
                         <textarea
                             name="plotSummary"
-                            value={movie.plotSummary}
-                            onChange={handleChange}
                             placeholder="Plot Summary"
-                            className="textarea textarea-bordered w-full"
+                            value={movie.plotSummary || ""}
+                            onChange={handleChange}
+                            className="textarea textarea-bordered w-full transition-colors duration-500"
+                            style={{
+                                backgroundColor: theme === "light" ? "#fff" : "#2a001f",
+                                color: theme === "light" ? "#000" : "#f3e6f0",
+                            }}
                         />
                     </div>
 
-                    {/* Added By (Read-only) */}
-                    <div className="col-span-1 md:col-span-2">
-                        <input
-                            type="text"
-                            name="addedBy"
-                            value={movie.addedBy}
-                            readOnly
-                            className="input input-bordered w-full bg-gray-200 cursor-not-allowed"
-                        />
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="col-span-1 md:col-span-2 flex justify-between mt-4">
-                        <button
+                    {/* Submit Button */}
+                    <div className="col-span-1 md:col-span-2 flex justify-center mt-4">
+                        <motion.button
                             type="submit"
-                            className="w-full md:w-auto px-6 py-3 font-semibold text-white rounded-lg 
-              bg-gradient-to-r from-[#4d0000] to-[#330000] 
-              hover:from-[#770000] hover:to-[#550000] 
-              transition-all duration-500 ease-in-out transform hover:scale-105 shadow-lg"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-full px-6 py-3 font-semibold rounded-lg shadow-lg text-white transition-all duration-500"
+                            style={{
+                                background:
+                                    theme === "light"
+                                        ? "linear-gradient(to right, #4a001f, #33001a)"
+                                        : "linear-gradient(to right, #770033, #550022)",
+                            }}
                         >
-                            Update
-                        </button>
-
-                        <Link
-                            to="/mycollections"
-                            className="btn btn-secondary md:w-auto w-full mt-2 md:mt-0"
-                        >
-                            Cancel
-                        </Link>
+                            Update Movie
+                        </motion.button>
                     </div>
                 </form>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 
