@@ -19,6 +19,12 @@ import EditMovie from './Components/Movie Details/Edit Movie/EditMovie.jsx'
 import { ThemeProvider } from 'next-themes'
 import { Contact } from 'lucide-react'
 import ContactUs from './Pages/Contact/Contact.jsx'
+import DashboardLayout from './Layout/Dashbordlayout/DashbordLayout.jsx'
+import AdminRoute from './User Route/AdminRoute.jsx'
+import Overview from './Layout/Admin/Overview.jsx'
+import ManageUsers from './Layout/Admin/ManageUsers.jsx'
+import ManageMovies from './Layout/Admin/ManageMovies.jsx'
+import MyWatchlist from './Layout/User/MyWatchlist.jsx'
 
 
 const router = createBrowserRouter([
@@ -97,7 +103,45 @@ const router = createBrowserRouter([
         Component: NotFound
       }
     ]
+  },
+
+  {
+    path: "dashboard",
+    element: (
+      <PrivetRoute>
+        <DashboardLayout />
+      </PrivetRoute>
+    ),
+    children: [
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-movies",
+        element: (
+          <AdminRoute>
+            <ManageMovies />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "my-watchlist",
+        element: (
+          <PrivetRoute>
+            <MyWatchlist />
+          </PrivetRoute>
+        ),
+      },
+    ],
   }
+  
+
+
 ])
 
 createRoot(document.getElementById('root')).render(

@@ -35,6 +35,7 @@ const Navbar = () => {
           <li><NavLink to="/addmovie" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Add Movie</NavLink></li>
           
           <li><NavLink to="/contact" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Contact</NavLink></li>
+          <li><NavLink to="/dashboard" className={({ isActive }) => isActive ? 'text-[#FF1E1E] font-semibold border-b-2 border-[#FF1E1E]' : 'text-[#fff] hover:text-[#FF1E1E]'}>Dashboard</NavLink></li>
         </>
       )}
     </>
